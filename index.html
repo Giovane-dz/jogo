@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pong Game</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #000;
+  }
+
+  .game-container {
+    position: relative;
+    width: 600px;
+    height: 400px;
+    background-color: #000;
+    border: 2px solid #fff;
+  }
+
+  .paddle {
+    position: absolute;
+    width: 10px;
+    height: 80px;
+    background-color: #fff;
+    top: 160px;
+  }
+
+  #paddleLeft {
+    left: 0;
+  }
+
+  #paddleRight {
+    right: 0;
+  }
+
+  .ball {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: #fff;
+    border-radius: 50%;
+    animation: moveBall linear infinite alternate;
+  }
+
+  @keyframes moveBall {
+    0% {
+      left: 0;
+      top: 0;
+    }
+    100% {
+      left: 585px;
+      top: 385px;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="game-container">
+  <div id="paddleLeft" class="paddle"></div>
+  <div id="paddleRight" class="paddle"></div>
+  <div id="ball" class="ball"></div>
+</div>
+
+<script>
+  // Define as raquetes
+  const paddleLeft = document.getElementById('paddleLeft');
+  const paddleRight = document.getElementById('paddleRight');
+
+  // Move a raquete direita usando as teclas de seta
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'ArrowUp') {
+      movePaddle(paddleRight, -20);
+    } else if (event.key === 'ArrowDown') {
+      movePaddle(paddleRight, 20);
+    }
+  });
+
+  // Move a raquete esquerda usando 'W' e 'S' no teclado
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'w') {
+      movePaddle(paddleLeft, -20);
+    } else if (event.key === 's') {
+      movePaddle(paddleLeft, 20);
+    }
+  });
+
+  // Função para mover a raquete
+  function movePaddle(paddle, offset) {
+    const currentPosition = parseInt(paddle.style.top) || 160;
+    const newPosition = currentPosition + offset;
+
+    if (newPosition >= 0 && newPosition <= 320) {
+      paddle.style.top = newPosition + 'px';
+    }
+  }
+</script>
+</body>
+</html>
